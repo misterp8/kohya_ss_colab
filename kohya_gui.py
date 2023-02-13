@@ -47,32 +47,21 @@ def UI(**kwargs):
 
     # Show the interface
     launch_kwargs = {}
+
     username = kwargs.get('username')
     password = kwargs.get('password')
-    server_port = kwargs.get('server_port', 0)
-    inbrowser = kwargs.get('inbrowser', False)
     if username and password:
         launch_kwargs["auth"] = (username, password)
-    if server_port > 0:
-        launch_kwargs["server_port"] = server_port
-    if inbrowser:
-        launch_kwargs["inbrowser"] = inbrowser
-    interface.launch(**launch_kwargs)
+
+    interface.launch(**launch_kwargs, share=True, inline=False, inbrowser=False)
 
 if __name__ == '__main__':
     # torch.cuda.set_per_process_memory_fraction(0.48)
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '--username', type=str, default='', help='Username for authentication'
-    )
-    parser.add_argument(
-        '--password', type=str, default='', help='Password for authentication'
-    )
-    parser.add_argument(
-        '--server_port', type=int, default=0, help='Port to run the server listener on'
-    )
+    parser.add_argument('--username', type=str, default='', help='Username for authentication')
+    parser.add_argument('--password', type=str, default='', help='Password for authentication')
     parser.add_argument("--inbrowser", action="store_true", help="Open in browser")
 
     args = parser.parse_args()
 
-    UI(username=args.username, password=args.password, inbrowser=args.inbrowser, server_port=args.server_port)
+    UI(username=args.username, password=args.password)

@@ -43,7 +43,7 @@ def caption_images(
     if caption_file_ext != '':
         run_cmd += [f'--caption_extension={caption_file_ext}']
     run_cmd += [f'{train_data_dir}']
-    run_cmd += [f'--caption_weights="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_large_caption.pth"']
+    run_cmd += [f'--caption_weights=https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_large_caption.pth']
 
     print(' '.join(run_cmd))
 

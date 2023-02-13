@@ -53,14 +53,13 @@ def UI(**kwargs):
     if username and password:
         launch_kwargs["auth"] = (username, password)
 
-    interface.launch(**launch_kwargs, share=True, inline=False, inbrowser=False)
+    interface.launch(**launch_kwargs, share=True, inline=False, inbrowser=False, debug=True)
 
 if __name__ == '__main__':
     # torch.cuda.set_per_process_memory_fraction(0.48)
     parser = argparse.ArgumentParser()
     parser.add_argument('--username', type=str, default='', help='Username for authentication')
     parser.add_argument('--password', type=str, default='', help='Password for authentication')
-    parser.add_argument("--inbrowser", action="store_true", help="Open in browser")
 
     args = parser.parse_args()
 

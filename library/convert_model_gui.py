@@ -62,12 +62,12 @@ def convert_model(
         target_model_type == 'diffuser'
         or target_model_type == 'diffuser_safetensors'
     ):
-        run_cmd += [f'--reference_model="{source_model_type}"']
+        run_cmd += [f'--reference_model={source_model_type}']
 
     if target_model_type == 'diffuser_safetensors':
         run_cmd += ['--use_safetensors']
 
-    run_cmd += [f'{source_model_input}']
+    run_cmd += [str(source_model_input)]
 
     if (
         target_model_type == 'diffuser'

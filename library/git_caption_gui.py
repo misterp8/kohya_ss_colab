@@ -27,14 +27,14 @@ def caption_images(
     print(f'GIT captioning files in {train_data_dir}...')
     run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/make_captions.py']
     if not model_id == '':
-        run_cmd += [f'--model_id="{model_id}"']
-    run_cmd += [f'--batch_size="{int(batch_size)}"']
+        run_cmd += [f'--model_id={model_id}']
+    run_cmd += [f'--batch_size={int(batch_size)}']
     run_cmd += (
-        [f'--max_data_loader_n_workers="{int(max_data_loader_n_workers)}"']
+        [f'--max_data_loader_n_workers={int(max_data_loader_n_workers)}']
     )
-    run_cmd += [f'--max_length="{int(max_length)}"']
+    run_cmd += [f'--max_length={int(max_length)}']
     if caption_ext != '':
-        run_cmd += [f'--caption_extension="{caption_ext}"']
+        run_cmd += [f'--caption_extension={caption_ext}']
     run_cmd += [train_data_dir]
 
     print(' '.join(run_cmd))

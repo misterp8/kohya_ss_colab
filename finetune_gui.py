@@ -286,10 +286,10 @@ def train_model(
     # create images buckets
     if generate_image_buckets:
         run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/prepare_buckets_latents.py']
-        run_cmd += [f'"{image_folder}"']
-        run_cmd += [f'"{train_dir}/{caption_metadata_filename}"']
-        run_cmd += [f'"{train_dir}/{latent_metadata_filename}"']
-        run_cmd += [f'"{pretrained_model_name_or_path}"']
+        run_cmd += [f'{image_folder}']
+        run_cmd += [f'{train_dir}/{caption_metadata_filename}']
+        run_cmd += [f'{train_dir}/{latent_metadata_filename}']
+        run_cmd += [f'{pretrained_model_name_or_path}']
         run_cmd += [f'--batch_size={batch_size}']
         run_cmd += [f'--max_resolution={max_resolution}']
         run_cmd += [f'--min_bucket_reso={min_bucket_reso}']
@@ -331,22 +331,22 @@ def train_model(
     lr_warmup_steps = round(float(int(lr_warmup) * int(max_train_steps) / 100))
     print(f'lr_warmup_steps = {lr_warmup_steps}')
 
-    run_cmd = [f'python "./fine_tune.py"']
+    run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/fine_tune.py']
     if v2:
         run_cmd += ['--v2']
     if v_parameterization:
         run_cmd += ['--v_parameterization']
     if train_text_encoder:
         run_cmd += ['--train_text_encoder']
-    run_cmd += [f'--pretrained_model_name_or_path="{pretrained_model_name_or_path}"']
+    run_cmd += [f'--pretrained_model_name_or_path={pretrained_model_name_or_path}']
     if use_latent_files == 'Yes':
-        run_cmd += [f'--in_json="{train_dir}/{latent_metadata_filename}"']
+        run_cmd += [f'--in_json={train_dir}/{latent_metadata_filename}']
     else:
-        run_cmd += [f'--in_json="{train_dir}/{caption_metadata_filename}"']
-    run_cmd += [f'--train_data_dir="{image_folder}"']
-    run_cmd += [f'--output_dir="{output_dir}"']
+        run_cmd += [f'--in_json={train_dir}/{caption_metadata_filename}']
+    run_cmd += [f'--train_data_dir={image_folder}']
+    run_cmd += [f'--output_dir={output_dir}']
     if not logging_dir == '':
-        run_cmd += [f'--logging_dir="{logging_dir}"']
+        run_cmd += [f'--logging_dir={logging_dir}']
     run_cmd += [f'--dataset_repeats={dataset_repeats}']
     run_cmd += [f'--learning_rate={learning_rate}']
 
@@ -364,7 +364,7 @@ def train_model(
     # if not resume == '':
     #     run_cmd += f' --resume={resume}'
     if not output_name == '':
-        run_cmd += [f'--output_name="{output_name}"']
+        run_cmd += [f'--output_name={output_name}']
     if int(max_token_length) > 75:
         run_cmd += [f'--max_token_length={max_token_length}']
 

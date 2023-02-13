@@ -32,10 +32,10 @@ def resize_lora(
 
     run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/resize_lora.py']
     run_cmd += ['--save_precision', save_precision]
-    run_cmd += [' --save_to', save_to]
-    run_cmd += [' --model', model]
-    run_cmd += [' --new_rank', new_rank]
-    run_cmd += [' --device', device]
+    run_cmd += ['--save_to', save_to]
+    run_cmd += ['--model', model]
+    run_cmd += ['--new_rank', new_rank]
+    run_cmd += ['--device', device]
 
     print(' '.join(run_cmd))
 

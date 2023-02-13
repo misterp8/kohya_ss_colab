@@ -17,11 +17,11 @@ def caption_images(
 ):
     # Check for images_dir_input
     if train_data_dir == '':
-        msgbox('Image folder is missing...')
+        print('Image folder is missing...')
         return
 
     if caption_ext == '':
-        msgbox('Please provide an extension for the caption files.')
+        print('Please provide an extension for the caption files.')
         return
 
     print(f'GIT captioning files in {train_data_dir}...')

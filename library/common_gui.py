@@ -165,7 +165,7 @@ def add_pre_postfix(
     folder='', prefix='', postfix='', caption_file_ext='.caption'
 ):
     if not has_ext_files(folder, caption_file_ext):
-        msgbox(
+        print(
             f'No files with extension {caption_file_ext} were found in {folder}...'
         )
         return
@@ -191,7 +191,7 @@ def add_pre_postfix(
 def find_replace(folder='', caption_file_ext='.caption', find='', replace=''):
     print('Running caption find/replace')
     if not has_ext_files(folder, caption_file_ext):
-        msgbox(
+        print(
             f'No files with extension {caption_file_ext} were found in {folder}...'
         )
         return
@@ -212,7 +212,7 @@ def find_replace(folder='', caption_file_ext='.caption', find='', replace=''):
 
 def color_aug_changed(color_aug):
     if color_aug:
-        msgbox(
+        print(
             'Disabling "Cache latent" because "Color augmentation" has been selected...'
         )
         return gr.Checkbox.update(value=False, interactive=False)

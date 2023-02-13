@@ -19,12 +19,12 @@ def verify_lora(
 ):
     # verify for caption_text_input
     if lora_model == '':
-        msgbox('Invalid model A file')
+        print('Invalid model A file')
         return
 
     # verify if source model exist
     if not os.path.isfile(lora_model):
-        msgbox('The provided model A is not a file')
+        print('The provided model A is not a file')
         return
 
     run_cmd = f'.\\venv\Scripts\python.exe "networks\check_lora_weights.py"'

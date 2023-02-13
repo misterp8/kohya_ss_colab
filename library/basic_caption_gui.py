@@ -16,11 +16,11 @@ def caption_images(
 ):
     # Check for images_dir_input
     if images_dir_input == '':
-        msgbox('Image folder is missing...')
+        print('Image folder is missing...')
         return
 
     if caption_file_ext == '':
-        msgbox('Please provide an extension for the caption files.')
+        print('Please provide an extension for the caption files.')
         return
 
     if not caption_text_input == '':
@@ -58,7 +58,7 @@ def caption_images(
             )
     else:
         if not prefix == '' or not postfix == '':
-            msgbox(
+            print(
                 'Could not modify caption files with requested change because the "Overwrite existing captions in folder" option is not selected...'
             )
 

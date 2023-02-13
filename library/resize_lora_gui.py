@@ -19,12 +19,12 @@ def resize_lora(
 ):
     # Check for caption_text_input
     if model == '':
-        msgbox('Invalid model file')
+        print('Invalid model file')
         return
 
     # Check if source model exist
     if not os.path.isfile(model):
-        msgbox('The provided model is not a file')
+        print('The provided model is not a file')
         return
 
     if device == '':

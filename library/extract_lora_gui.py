@@ -24,20 +24,20 @@ def extract_lora(
 ):
     # Check for caption_text_input
     if model_tuned == '':
-        msgbox('Invalid finetuned model file')
+        print('Invalid finetuned model file')
         return
 
     if model_org == '':
-        msgbox('Invalid base model file')
+        print('Invalid base model file')
         return
 
     # Check if source model exist
     if not os.path.isfile(model_tuned):
-        msgbox('The provided finetuned model is not a file')
+        print('The provided finetuned model is not a file')
         return
 
     if not os.path.isfile(model_org):
-        msgbox('The provided base model is not a file')
+        print('The provided base model is not a file')
         return
 
     run_cmd = (

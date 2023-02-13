@@ -277,32 +277,32 @@ def train_model(
     caption_dropout_every_n_epochs, caption_dropout_rate,
 ):
     if pretrained_model_name_or_path == '':
-        msgbox('Source model information is missing')
+        print('Source model information is missing')
         return
 
     if train_data_dir == '':
-        msgbox('Image folder path is missing')
+        print('Image folder path is missing')
         return
 
     if not os.path.exists(train_data_dir):
-        msgbox('Image folder does not exist')
+        print('Image folder does not exist')
         return
 
     if reg_data_dir != '':
         if not os.path.exists(reg_data_dir):
-            msgbox('Regularisation folder does not exist')
+            print('Regularisation folder does not exist')
             return
 
     if output_dir == '':
-        msgbox('Output folder path is missing')
+        print('Output folder path is missing')
         return
 
     if token_string == '':
-        msgbox('Token string is missing')
+        print('Token string is missing')
         return
 
     if init_word == '':
-        msgbox('Init word is missing')
+        print('Init word is missing')
         return
 
     if not os.path.exists(output_dir):

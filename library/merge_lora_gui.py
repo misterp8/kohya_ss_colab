@@ -24,20 +24,20 @@ def merge_lora(
 ):
     # Check for caption_text_input
     if lora_a_model == '':
-        msgbox('Invalid model A file')
+        print('Invalid model A file')
         return
 
     if lora_b_model == '':
-        msgbox('Invalid model B file')
+        print('Invalid model B file')
         return
 
     # Check if source model exist
     if not os.path.isfile(lora_a_model):
-        msgbox('The provided model A is not a file')
+        print('The provided model A is not a file')
         return
 
     if not os.path.isfile(lora_b_model):
-        msgbox('The provided model B is not a file')
+        print('The provided model B is not a file')
         return
 
     ratio_a = ratio

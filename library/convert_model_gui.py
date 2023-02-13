@@ -21,7 +21,7 @@ def convert_model(
 ):
     # Check for caption_text_input
     if source_model_type == '':
-        msgbox('Invalid source model type')
+        print('Invalid source model type')
         return
 
     # Check if source model exist
@@ -30,14 +30,14 @@ def convert_model(
     elif os.path.isdir(source_model_input):
         print('The provided model is a folder')
     else:
-        msgbox('The provided source model is neither a file nor a folder')
+        print('The provided source model is neither a file nor a folder')
         return
 
     # Check if source model exist
     if os.path.isdir(target_model_folder_input):
         print('The provided model folder exist')
     else:
-        msgbox('The provided target folder does not exist')
+        print('The provided target folder does not exist')
         return
 
     run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/tools/convert_diffusers20_original_sd.py"'

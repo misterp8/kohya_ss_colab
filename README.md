@@ -110,7 +110,7 @@ or you can also do:
 ```
 .\venv\Scripts\activate
 
-python.exe .\kohya_gui.py
+python .\kohya_gui.py
 ```
 
 ## Dreambooth

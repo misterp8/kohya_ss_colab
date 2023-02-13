@@ -27,7 +27,7 @@ def verify_lora(
         print('The provided model A is not a file')
         return
 
-    run_cmd = f'.\\venv\Scripts\python.exe "networks\check_lora_weights.py"'
+    run_cmd = f'python "networks\check_lora_weights.py"'
     run_cmd += f' {lora_model}'
 
     print(run_cmd)

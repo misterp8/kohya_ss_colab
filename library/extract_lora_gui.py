@@ -41,7 +41,7 @@ def extract_lora(
         return
 
     run_cmd = (
-        f'.\\venv\Scripts\python.exe "networks\extract_lora_from_models.py"'
+        f'python "networks\extract_lora_from_models.py"'
     )
     run_cmd += f' --save_precision {save_precision}'
     run_cmd += f' --save_to "{save_to}"'

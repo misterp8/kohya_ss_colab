@@ -269,7 +269,7 @@ def train_model(
             os.mkdir(train_dir)
 
         run_cmd = (
-            f'./venv/Scripts/python.exe finetune/merge_captions_to_metadata.py'
+            f'python finetune/merge_captions_to_metadata.py'
         )
         if caption_extension == '':
             run_cmd += f' --caption_extension=".caption"'
@@ -288,7 +288,7 @@ def train_model(
     # create images buckets
     if generate_image_buckets:
         run_cmd = (
-            f'./venv/Scripts/python.exe finetune/prepare_buckets_latents.py'
+            f'python finetune/prepare_buckets_latents.py'
         )
         run_cmd += f' "{image_folder}"'
         run_cmd += f' "{train_dir}/{caption_metadata_filename}"'

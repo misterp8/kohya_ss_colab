@@ -1,1 +1,1 @@
-.\venv\Scripts\python.exe library\utilities.py
+python library\utilities.py

@@ -1,2 +1,2 @@
 .\venv\Scripts\activate
-python.exe kohya_gui.py $args
+python kohya_gui.py $args

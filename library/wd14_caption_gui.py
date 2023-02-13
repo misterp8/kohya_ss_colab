@@ -20,17 +20,17 @@ def caption_images(train_data_dir, caption_extension, batch_size, thresh):
         return
 
     print(f'Captioning files in {train_data_dir}...')
-    run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/finetune/tag_images_by_wd14_tagger.py"'
-    run_cmd += f' --batch_size="{int(batch_size)}"'
-    run_cmd += f' --thresh="{thresh}"'
+    run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/tag_images_by_wd14_tagger.py']
+    run_cmd += [f'--batch_size="{int(batch_size)}"']
+    run_cmd += [f'--thresh="{thresh}"']
     if caption_extension != '':
-        run_cmd += f' --caption_extension="{caption_extension}"'
-    run_cmd += f' "{train_data_dir}"'
+        run_cmd += [f'--caption_extension="{caption_extension}"']
+    run_cmd += [train_data_dir]
 
     print(run_cmd)
 
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
     print('...captioning done')
 

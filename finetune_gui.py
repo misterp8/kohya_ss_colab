@@ -268,46 +268,42 @@ def train_model(
         if not os.path.exists(train_dir):
             os.mkdir(train_dir)
 
-        run_cmd = (
-            f'python finetune/merge_captions_to_metadata.py'
-        )
+        run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/merge_captions_to_metadata.py']
         if caption_extension == '':
-            run_cmd += f' --caption_extension=".caption"'
+            run_cmd += [f'--caption_extension=".caption"']
         else:
-            run_cmd += f' --caption_extension={caption_extension}'
-        run_cmd += f' "{image_folder}"'
-        run_cmd += f' "{train_dir}/{caption_metadata_filename}"'
+            run_cmd += [f'--caption_extension={caption_extension}']
+        run_cmd += [str(image_folder)]
+        run_cmd += [f'"{train_dir}/{caption_metadata_filename}"']
         if full_path:
-            run_cmd += f' --full_path'
+            run_cmd += [f'--full_path']
 
-        print(run_cmd)
+        print(' '.join(run_cmd))
 
         # Run the command
-        subprocess.run(run_cmd)
+        subprocess.call(run_cmd)
 
     # create images buckets
     if generate_image_buckets:
-        run_cmd = (
-            f'python finetune/prepare_buckets_latents.py'
-        )
-        run_cmd += f' "{image_folder}"'
-        run_cmd += f' "{train_dir}/{caption_metadata_filename}"'
-        run_cmd += f' "{train_dir}/{latent_metadata_filename}"'
-        run_cmd += f' "{pretrained_model_name_or_path}"'
-        run_cmd += f' --batch_size={batch_size}'
-        run_cmd += f' --max_resolution={max_resolution}'
-        run_cmd += f' --min_bucket_reso={min_bucket_reso}'
-        run_cmd += f' --max_bucket_reso={max_bucket_reso}'
-        run_cmd += f' --mixed_precision={mixed_precision}'
+        run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/prepare_buckets_latents.py']
+        run_cmd += [f'"{image_folder}"']
+        run_cmd += [f'"{train_dir}/{caption_metadata_filename}"']
+        run_cmd += [f'"{train_dir}/{latent_metadata_filename}"']
+        run_cmd += [f'"{pretrained_model_name_or_path}"']
+        run_cmd += [f'--batch_size={batch_size}']
+        run_cmd += [f'--max_resolution={max_resolution}']
+        run_cmd += [f'--min_bucket_reso={min_bucket_reso}']
+        run_cmd += [f'--max_bucket_reso={max_bucket_reso}']
+        run_cmd += [f'--mixed_precision={mixed_precision}']
         # if flip_aug:
         #     run_cmd += f' --flip_aug'
         if full_path:
-            run_cmd += f' --full_path'
+            run_cmd += [f'--full_path']
 
-        print(run_cmd)
+        print(' '.join(run_cmd))
 
         # Run the command
-        subprocess.run(run_cmd)
+        subprocess.call(run_cmd)
 
     image_num = len(
         [
@@ -335,44 +331,42 @@ def train_model(
     lr_warmup_steps = round(float(int(lr_warmup) * int(max_train_steps) / 100))
     print(f'lr_warmup_steps = {lr_warmup_steps}')
 
-    run_cmd = f'accelerate launch --num_cpu_threads_per_process={num_cpu_threads_per_process} "./fine_tune.py"'
+    run_cmd = [f'python "./fine_tune.py"']
     if v2:
-        run_cmd += ' --v2'
+        run_cmd += ['--v2']
     if v_parameterization:
-        run_cmd += ' --v_parameterization'
+        run_cmd += ['--v_parameterization']
     if train_text_encoder:
-        run_cmd += ' --train_text_encoder'
-    run_cmd += (
-        f' --pretrained_model_name_or_path="{pretrained_model_name_or_path}"'
-    )
+        run_cmd += ['--train_text_encoder']
+    run_cmd += [f'--pretrained_model_name_or_path="{pretrained_model_name_or_path}"']
     if use_latent_files == 'Yes':
-        run_cmd += f' --in_json="{train_dir}/{latent_metadata_filename}"'
+        run_cmd += [f'--in_json="{train_dir}/{latent_metadata_filename}"']
     else:
-        run_cmd += f' --in_json="{train_dir}/{caption_metadata_filename}"'
-    run_cmd += f' --train_data_dir="{image_folder}"'
-    run_cmd += f' --output_dir="{output_dir}"'
+        run_cmd += [f'--in_json="{train_dir}/{caption_metadata_filename}"']
+    run_cmd += [f'--train_data_dir="{image_folder}"']
+    run_cmd += [f'--output_dir="{output_dir}"']
     if not logging_dir == '':
-        run_cmd += f' --logging_dir="{logging_dir}"'
-    run_cmd += f' --dataset_repeats={dataset_repeats}'
-    run_cmd += f' --learning_rate={learning_rate}'
+        run_cmd += [f'--logging_dir="{logging_dir}"']
+    run_cmd += [f'--dataset_repeats={dataset_repeats}']
+    run_cmd += [f'--learning_rate={learning_rate}']
 
-    run_cmd += ' --enable_bucket'
-    run_cmd += f' --resolution={max_resolution}'
-    run_cmd += f' --min_bucket_reso={min_bucket_reso}'
-    run_cmd += f' --max_bucket_reso={max_bucket_reso}'
+    run_cmd += ['--enable_bucket']
+    run_cmd += [f'--resolution={max_resolution}']
+    run_cmd += [f'--min_bucket_reso={min_bucket_reso}']
+    run_cmd += [f'--max_bucket_reso={max_bucket_reso}']
 
     if not save_model_as == 'same as source model':
-        run_cmd += f' --save_model_as={save_model_as}'
+        run_cmd += [f'--save_model_as={save_model_as}']
     if int(gradient_accumulation_steps) > 1:
-        run_cmd += f' --gradient_accumulation_steps={int(gradient_accumulation_steps)}'
+        run_cmd += [f'--gradient_accumulation_steps={int(gradient_accumulation_steps)}']
     # if save_state:
     #     run_cmd += ' --save_state'
     # if not resume == '':
     #     run_cmd += f' --resume={resume}'
     if not output_name == '':
-        run_cmd += f' --output_name="{output_name}"'
+        run_cmd += [f'--output_name="{output_name}"']
     if int(max_token_length) > 75:
-        run_cmd += f' --max_token_length={max_token_length}'
+        run_cmd += [f'--max_token_length={max_token_length}']
 
     run_cmd += run_cmd_training(
         learning_rate=learning_rate,
@@ -412,9 +406,9 @@ def train_model(
         caption_dropout_rate=caption_dropout_rate,
     )
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
     # check if output_dir/last is a folder... therefore it is a diffuser model
     last_dir = pathlib.Path(f'{output_dir}/{output_name}')

@@ -40,7 +40,7 @@ def convert_model(
         print('The provided target folder does not exist')
         return
 
-    run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/tools/convert_diffusers20_original_sd.py"'
+    run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/tools/convert_diffusers20_original_sd.py]']
 
     v1_models = [
         'runwayml/stable-diffusion-v1-5',
@@ -50,24 +50,24 @@ def convert_model(
     # check if v1 models
     if str(source_model_type) in v1_models:
         print('SD v1 model specified. Setting --v1 parameter')
-        run_cmd += ' --v1'
+        run_cmd += ['--v1']
     else:
         print('SD v2 model specified. Setting --v2 parameter')
-        run_cmd += ' --v2'
+        run_cmd += ['--v2']
 
     if not target_save_precision_type == 'unspecified':
-        run_cmd += f' --{target_save_precision_type}'
+        run_cmd += [f'--{target_save_precision_type}']
 
     if (
         target_model_type == 'diffuser'
         or target_model_type == 'diffuser_safetensors'
     ):
-        run_cmd += f' --reference_model="{source_model_type}"'
+        run_cmd += [f'--reference_model="{source_model_type}"']
 
     if target_model_type == 'diffuser_safetensors':
-        run_cmd += ' --use_safetensors'
+        run_cmd += ['--use_safetensors']
 
-    run_cmd += f' "{source_model_input}"'
+    run_cmd += [f'{source_model_input}']
 
     if (
         target_model_type == 'diffuser'
@@ -76,18 +76,18 @@ def convert_model(
         target_model_path = os.path.join(
             target_model_folder_input, target_model_name_input
         )
-        run_cmd += f' "{target_model_path}"'
+        run_cmd += [f'{target_model_path}']
     else:
         target_model_path = os.path.join(
             target_model_folder_input,
             f'{target_model_name_input}.{target_model_type}',
         )
-        run_cmd += f' "{target_model_path}"'
+        run_cmd += [f'{target_model_path}']
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
 
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
     if (
         not target_model_type == 'diffuser'

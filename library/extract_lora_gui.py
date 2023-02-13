@@ -40,21 +40,19 @@ def extract_lora(
         print('The provided base model is not a file')
         return
 
-    run_cmd = (
-        f'python "networks\extract_lora_from_models.py"'
-    )
-    run_cmd += f' --save_precision {save_precision}'
-    run_cmd += f' --save_to "{save_to}"'
-    run_cmd += f' --model_org "{model_org}"'
-    run_cmd += f' --model_tuned "{model_tuned}"'
-    run_cmd += f' --dim {dim}'
+    run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/extract_lora_from_models.py']
+    run_cmd += ['--save_precision', save_precision]
+    run_cmd += ['--save_to', save_to]
+    run_cmd += ['--model_org', model_org]
+    run_cmd += ['--model_tuned', model_tuned]
+    run_cmd += ['--dim', dim]
     if v2:
-        run_cmd += f' --v2'
+        run_cmd += ['--v2']
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
 
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
 
 ###

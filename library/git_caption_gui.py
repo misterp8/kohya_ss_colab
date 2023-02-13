@@ -25,22 +25,22 @@ def caption_images(
         return
 
     print(f'GIT captioning files in {train_data_dir}...')
-    run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/finetune/make_captions.py"'
+    run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/make_captions.py']
     if not model_id == '':
-        run_cmd += f' --model_id="{model_id}"'
-    run_cmd += f' --batch_size="{int(batch_size)}"'
+        run_cmd += [f'--model_id="{model_id}"']
+    run_cmd += [f'--batch_size="{int(batch_size)}"']
     run_cmd += (
-        f' --max_data_loader_n_workers="{int(max_data_loader_n_workers)}"'
+        [f'--max_data_loader_n_workers="{int(max_data_loader_n_workers)}"']
     )
-    run_cmd += f' --max_length="{int(max_length)}"'
+    run_cmd += [f'--max_length="{int(max_length)}"']
     if caption_ext != '':
-        run_cmd += f' --caption_extension="{caption_ext}"'
-    run_cmd += f' "{train_data_dir}"'
+        run_cmd += [f'--caption_extension="{caption_ext}"']
+    run_cmd += [train_data_dir]
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
 
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
     # Add prefix and postfix
     add_pre_postfix(

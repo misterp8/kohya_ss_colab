@@ -381,69 +381,65 @@ def train_model(
     lr_warmup_steps = round(float(int(lr_warmup) * int(max_train_steps) / 100))
     print(f'lr_warmup_steps = {lr_warmup_steps}')
 
-    run_cmd = f'accelerate launch --num_cpu_threads_per_process={num_cpu_threads_per_process} "train_network.py"'
+    run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/train_network.py']
 
     # run_cmd += f' --caption_dropout_rate="0.1" --caption_dropout_every_n_epochs=1'   # --random_crop'
 
     if v2:
-        run_cmd += ' --v2'
+        run_cmd += ['--v2']
     if v_parameterization:
-        run_cmd += ' --v_parameterization'
+        run_cmd += ['--v_parameterization']
     if enable_bucket:
-        run_cmd += ' --enable_bucket'
+        run_cmd += ['--enable_bucket']
     if no_token_padding:
-        run_cmd += ' --no_token_padding'
-    run_cmd += (
-        f' --pretrained_model_name_or_path="{pretrained_model_name_or_path}"'
-    )
-    run_cmd += f' --train_data_dir="{train_data_dir}"'
+        run_cmd += ['--no_token_padding']
+    run_cmd += [f'--pretrained_model_name_or_path="{pretrained_model_name_or_path}"']
+    run_cmd += [f'--train_data_dir="{train_data_dir}"']
     if len(reg_data_dir):
-        run_cmd += f' --reg_data_dir="{reg_data_dir}"'
-    run_cmd += f' --resolution={max_resolution}'
-    run_cmd += f' --output_dir="{output_dir}"'
-    run_cmd += f' --logging_dir="{logging_dir}"'
-    run_cmd += f' --network_alpha="{network_alpha}"'
+        run_cmd += [f'--reg_data_dir="{reg_data_dir}"']
+    run_cmd += [f'--resolution={max_resolution}']
+    run_cmd += [f'--output_dir="{output_dir}"']
+    run_cmd += [f'--logging_dir="{logging_dir}"']
+    run_cmd += [f'--network_alpha="{network_alpha}"']
     if not training_comment == '':
-        run_cmd += f' --training_comment="{training_comment}"'
+        run_cmd += [f'--training_comment="{training_comment}"']
     if not stop_text_encoder_training == 0:
-        run_cmd += (
-            f' --stop_text_encoder_training={stop_text_encoder_training}'
-        )
+        run_cmd += [f'--stop_text_encoder_training={stop_text_encoder_training}']
     if not save_model_as == 'same as source model':
-        run_cmd += f' --save_model_as={save_model_as}'
+        run_cmd += [f'--save_model_as={save_model_as}']
     if not float(prior_loss_weight) == 1.0:
-        run_cmd += f' --prior_loss_weight={prior_loss_weight}'
-    run_cmd += f' --network_module=networks.lora'
+        run_cmd += [f'--prior_loss_weight={prior_loss_weight}']
+    run_cmd += [f'--network_module=networks.lora']
 
     if not (float(text_encoder_lr) == 0) or not (float(unet_lr) == 0):
         if not (float(text_encoder_lr) == 0) and not (float(unet_lr) == 0):
-            run_cmd += f' --text_encoder_lr={text_encoder_lr}'
-            run_cmd += f' --unet_lr={unet_lr}'
+            run_cmd += [f'--text_encoder_lr={text_encoder_lr}']
+            run_cmd += [f'--unet_lr={unet_lr}']
         elif not (float(text_encoder_lr) == 0):
-            run_cmd += f' --text_encoder_lr={text_encoder_lr}'
-            run_cmd += f' --network_train_text_encoder_only'
+            run_cmd += [f'--text_encoder_lr={text_encoder_lr}']
+            run_cmd += [f'--network_train_text_encoder_only']
         else:
-            run_cmd += f' --unet_lr={unet_lr}'
-            run_cmd += f' --network_train_unet_only'
+            run_cmd += [f'--unet_lr={unet_lr}']
+            run_cmd += [f'--network_train_unet_only']
     else:
         if float(text_encoder_lr) == 0:
             print('Please input learning rate values.')
             return
 
-    run_cmd += f' --network_dim={network_dim}'
+    run_cmd += [f'--network_dim={network_dim}']
 
     if not lora_network_weights == '':
-        run_cmd += f' --network_weights="{lora_network_weights}"'
+        run_cmd += [f'--network_weights="{lora_network_weights}"']
     if int(gradient_accumulation_steps) > 1:
-        run_cmd += f' --gradient_accumulation_steps={int(gradient_accumulation_steps)}'
+        run_cmd += [f'--gradient_accumulation_steps={int(gradient_accumulation_steps)}']
     if not output_name == '':
-        run_cmd += f' --output_name="{output_name}"'
+        run_cmd += [f'--output_name="{output_name}"']
     if not lr_scheduler_num_cycles == '':
-        run_cmd += f' --lr_scheduler_num_cycles="{lr_scheduler_num_cycles}"'
+        run_cmd += [f'--lr_scheduler_num_cycles="{lr_scheduler_num_cycles}"']
     else:
-        run_cmd += f' --lr_scheduler_num_cycles="{epoch}"'
+        run_cmd += [f'--lr_scheduler_num_cycles="{epoch}"']
     if not lr_scheduler_power == '':
-        run_cmd += f' --lr_scheduler_power="{lr_scheduler_power}"'
+        run_cmd += [f'--lr_scheduler_power="{lr_scheduler_power}"']
 
     run_cmd += run_cmd_training(
         learning_rate=learning_rate,
@@ -483,9 +479,9 @@ def train_model(
         caption_dropout_rate=caption_dropout_rate,
     )
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
     # check if output_dir/last is a folder... therefore it is a diffuser model
     last_dir = pathlib.Path(f'{output_dir}/{output_name}')

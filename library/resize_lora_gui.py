@@ -30,17 +30,17 @@ def resize_lora(
     if device == '':
         device = 'cuda'
 
-    run_cmd = f'python "networks\\resize_lora.py"'
-    run_cmd += f' --save_precision {save_precision}'
-    run_cmd += f' --save_to {save_to}'
-    run_cmd += f' --model {model}'
-    run_cmd += f' --new_rank {new_rank}'
-    run_cmd += f' --device {device}'
+    run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/resize_lora.py']
+    run_cmd += ['--save_precision', save_precision]
+    run_cmd += [' --save_to', save_to]
+    run_cmd += [' --model', model]
+    run_cmd += [' --new_rank', new_rank]
+    run_cmd += [' --device', device]
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
 
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
 
 ###

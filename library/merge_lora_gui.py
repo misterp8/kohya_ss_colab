@@ -43,17 +43,17 @@ def merge_lora(
     ratio_a = ratio
     ratio_b = 1 - ratio
 
-    run_cmd = f'python "networks\merge_lora.py"'
-    run_cmd += f' --save_precision {save_precision}'
-    run_cmd += f' --precision {precision}'
-    run_cmd += f' --save_to {save_to}'
-    run_cmd += f' --models {lora_a_model} {lora_b_model}'
-    run_cmd += f' --ratios {ratio_a} {ratio_b}'
+    run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/merge_lora.py']
+    run_cmd += [f'--save_precision', save_precision]
+    run_cmd += [f'--precision', precision]
+    run_cmd += [f'--save_to', save_to]
+    run_cmd += [f'--models', lora_a_model, lora_b_model]
+    run_cmd += [f'--ratios', ratio_a, ratio_b]
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
 
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
 
 ###

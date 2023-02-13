@@ -27,19 +27,16 @@ def verify_lora(
         print('The provided model A is not a file')
         return
 
-    run_cmd = f'python "networks\check_lora_weights.py"'
-    run_cmd += f' {lora_model}'
+    run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/check_lora_weights.py']
+    run_cmd += [lora_model]
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
 
     # Run the command
-    subprocess.run(run_cmd)
-    process = subprocess.Popen(
-        run_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-    )
+    process = subprocess.call(run_cmd)
     output, error = process.communicate()
 
-    return (output.decode(), error.decode())
+    return output.decode(), error.decode()
 
 
 ###

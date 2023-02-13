@@ -379,48 +379,42 @@ def train_model(
     lr_warmup_steps = round(float(int(lr_warmup) * int(max_train_steps) / 100))
     print(f'lr_warmup_steps = {lr_warmup_steps}')
 
-    run_cmd = f'accelerate launch --num_cpu_threads_per_process={num_cpu_threads_per_process} "train_textual_inversion.py"'
+    run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/train_textual_inversion.py']
     if v2:
-        run_cmd += ' --v2'
+        run_cmd += ['--v2']
     if v_parameterization:
-        run_cmd += ' --v_parameterization'
+        run_cmd += ['--v_parameterization']
     if enable_bucket:
-        run_cmd += ' --enable_bucket'
+        run_cmd += ['--enable_bucket']
     if no_token_padding:
-        run_cmd += ' --no_token_padding'
-    run_cmd += (
-        f' --pretrained_model_name_or_path="{pretrained_model_name_or_path}"'
-    )
-    run_cmd += f' --train_data_dir="{train_data_dir}"'
+        run_cmd += ['--no_token_padding']
+    run_cmd += [f'--pretrained_model_name_or_path="{pretrained_model_name_or_path}"']
+    run_cmd += [f'--train_data_dir="{train_data_dir}"']
     if len(reg_data_dir):
-        run_cmd += f' --reg_data_dir="{reg_data_dir}"'
-    run_cmd += f' --resolution={max_resolution}'
-    run_cmd += f' --output_dir="{output_dir}"'
-    run_cmd += f' --logging_dir="{logging_dir}"'
+        run_cmd += [f'--reg_data_dir="{reg_data_dir}"']
+    run_cmd += [f'--resolution={max_resolution}']
+    run_cmd += [f'--output_dir="{output_dir}"']
+    run_cmd += [f'--logging_dir="{logging_dir}"']
     if not stop_text_encoder_training == 0:
-        run_cmd += (
-            f' --stop_text_encoder_training={stop_text_encoder_training}'
-        )
+        run_cmd += [f'--stop_text_encoder_training={stop_text_encoder_training}']
     if not save_model_as == 'same as source model':
-        run_cmd += f' --save_model_as={save_model_as}'
+        run_cmd += [f'--save_model_as={save_model_as}']
     # if not resume == '':
     #     run_cmd += f' --resume={resume}'
     if not float(prior_loss_weight) == 1.0:
-        run_cmd += f' --prior_loss_weight={prior_loss_weight}'
+        run_cmd += [f'--prior_loss_weight={prior_loss_weight}']
     if not vae == '':
-        run_cmd += f' --vae="{vae}"'
+        run_cmd += [f'--vae="{vae}"']
     if not output_name == '':
-        run_cmd += f' --output_name="{output_name}"'
+        run_cmd += [f'--output_name="{output_name}"']
     if int(max_token_length) > 75:
-        run_cmd += f' --max_token_length={max_token_length}'
+        run_cmd += [f'--max_token_length={max_token_length}']
     if not max_train_epochs == '':
-        run_cmd += f' --max_train_epochs="{max_train_epochs}"'
+        run_cmd += [f'--max_train_epochs="{max_train_epochs}"']
     if not max_data_loader_n_workers == '':
-        run_cmd += (
-            f' --max_data_loader_n_workers="{max_data_loader_n_workers}"'
-        )
+        run_cmd += [f'--max_data_loader_n_workers="{max_data_loader_n_workers}"']
     if int(gradient_accumulation_steps) > 1:
-        run_cmd += f' --gradient_accumulation_steps={int(gradient_accumulation_steps)}'
+        run_cmd += [f'--gradient_accumulation_steps={int(gradient_accumulation_steps)}']
 
     run_cmd += run_cmd_training(
         learning_rate=learning_rate,
@@ -459,19 +453,19 @@ def train_model(
         caption_dropout_every_n_epochs=caption_dropout_every_n_epochs,
         caption_dropout_rate=caption_dropout_rate,
     )
-    run_cmd += f' --token_string="{token_string}"'
-    run_cmd += f' --init_word="{init_word}"'
-    run_cmd += f' --num_vectors_per_token={num_vectors_per_token}'
+    run_cmd += [f'--token_string="{token_string}"']
+    run_cmd += [f'--init_word="{init_word}"']
+    run_cmd += [f'--num_vectors_per_token={num_vectors_per_token}']
     if not weights == '':
-        run_cmd += f' --weights="{weights}"'
+        run_cmd += [f'--weights="{weights}"']
     if template == 'object template':
-        run_cmd += f' --use_object_template'
+        run_cmd += [f'--use_object_template']
     elif template == 'style template':
-        run_cmd += f' --use_style_template'
+        run_cmd += [f'--use_style_template']
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
     # check if output_dir/last is a folder... therefore it is a diffuser model
     last_dir = pathlib.Path(f'{output_dir}/{output_name}')

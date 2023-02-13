@@ -32,23 +32,23 @@ def caption_images(
         return
 
     print(f'Captioning files in {train_data_dir}...')
-    run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/finetune/make_captions.py"'
-    run_cmd += f' --batch_size="{int(batch_size)}"'
-    run_cmd += f' --num_beams="{int(num_beams)}"'
-    run_cmd += f' --top_p="{top_p}"'
-    run_cmd += f' --max_length="{int(max_length)}"'
-    run_cmd += f' --min_length="{int(min_length)}"'
+    run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/make_captions.py']
+    run_cmd += [f'--batch_size="{int(batch_size)}"']
+    run_cmd += [f'--num_beams="{int(num_beams)}"']
+    run_cmd += [f'--top_p="{top_p}"']
+    run_cmd += [f'--max_length="{int(max_length)}"']
+    run_cmd += [f'--min_length="{int(min_length)}"']
     if beam_search:
-        run_cmd += f' --beam_search'
+        run_cmd += [f'--beam_search']
     if caption_file_ext != '':
-        run_cmd += f' --caption_extension="{caption_file_ext}"'
-    run_cmd += f' "{train_data_dir}"'
-    run_cmd += f' --caption_weights="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_large_caption.pth"'
+        run_cmd += [f'--caption_extension="{caption_file_ext}"']
+    run_cmd += [f'{train_data_dir}']
+    run_cmd += [f'--caption_weights="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_large_caption.pth"']
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
 
     # Run the command
-    subprocess.run(run_cmd)
+    subprocess.call(run_cmd)
 
     # Add prefix and postfix
     add_pre_postfix(

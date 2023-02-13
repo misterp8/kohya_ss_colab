@@ -32,7 +32,7 @@ def caption_images(
         return
 
     print(f'Captioning files in {train_data_dir}...')
-    run_cmd = f'.\\venv\\Scripts\\python.exe "finetune/make_captions.py"'
+    run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/finetune/make_captions.py"'
     run_cmd += f' --batch_size="{int(batch_size)}"'
     run_cmd += f' --num_beams="{int(num_beams)}"'
     run_cmd += f' --top_p="{top_p}"'

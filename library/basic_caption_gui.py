@@ -27,7 +27,7 @@ def caption_images(
         print(
             f'Captioning files in {images_dir_input} with {caption_text_input}...'
         )
-        run_cmd = f'python "tools/caption.py"'
+        run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/tools/caption.py"'
         run_cmd += f' --caption_text="{caption_text_input}"'
         if overwrite_input:
             run_cmd += f' --overwrite'

@@ -40,7 +40,7 @@ def convert_model(
         msgbox('The provided target folder does not exist')
         return
 
-    run_cmd = f'.\\venv\Scripts\python.exe "tools/convert_diffusers20_original_sd.py"'
+    run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/tools/convert_diffusers20_original_sd.py"'
 
     v1_models = [
         'runwayml/stable-diffusion-v1-5',

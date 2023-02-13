@@ -25,7 +25,7 @@ def caption_images(
         return
 
     print(f'GIT captioning files in {train_data_dir}...')
-    run_cmd = f'.\\venv\\Scripts\\python.exe "finetune/make_captions.py"'
+    run_cmd = f'python "/content/gdrive/MyDrive/sd/kohya_ss/finetune/make_captions.py"'
     if not model_id == '':
         run_cmd += f' --model_id="{model_id}"'
     run_cmd += f' --batch_size="{int(batch_size)}"'

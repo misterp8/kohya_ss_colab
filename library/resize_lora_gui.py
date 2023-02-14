@@ -31,11 +31,11 @@ def resize_lora(
         device = 'cuda'
 
     run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/resize_lora.py']
-    run_cmd += ['--save_precision', save_precision]
-    run_cmd += ['--save_to', save_to]
-    run_cmd += ['--model', model]
-    run_cmd += ['--new_rank', new_rank]
-    run_cmd += ['--device', device]
+    run_cmd.extend(['--save_precision', str(save_precision)])
+    run_cmd.extend(['--save_to', str(save_to)])
+    run_cmd.extend(['--model', str(model)])
+    run_cmd.extend(['--new_rank', str(new_rank)])
+    run_cmd.extend(['--device', str(device)])
 
     print(' '.join(run_cmd))
 

@@ -28,12 +28,12 @@ def caption_images(
             f'Captioning files in {images_dir_input} with {caption_text_input}...'
         )
         run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/tools/caption.py']
-        run_cmd += [f'--caption_text={caption_text_input}']
+        run_cmd.append(f'--caption_text={caption_text_input}')
         if overwrite_input:
-            run_cmd += [f'--overwrite']
+            run_cmd.append(f'--overwrite')
         if caption_file_ext != '':
-            run_cmd += [f'--caption_file_ext={caption_file_ext}']
-        run_cmd += [f'{images_dir_input}']
+            run_cmd.append(f'--caption_file_ext={caption_file_ext}')
+        run_cmd.append(str(images_dir_input))
 
         print(' '.join(run_cmd))
 

@@ -44,11 +44,11 @@ def merge_lora(
     ratio_b = 1 - ratio
 
     run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/merge_lora.py']
-    run_cmd += [f'--save_precision', save_precision]
-    run_cmd += [f'--precision', precision]
-    run_cmd += [f'--save_to', save_to]
-    run_cmd += [f'--models', lora_a_model, lora_b_model]
-    run_cmd += [f'--ratios', ratio_a, ratio_b]
+    run_cmd.extend([f'--save_precision', str(save_precision)])
+    run_cmd.extend([f'--precision', str(precision)])
+    run_cmd.extend([f'--save_to', str(save_to)])
+    run_cmd.extend([f'--models', str(lora_a_model), str(lora_b_model)])
+    run_cmd.extend([f'--ratios', str(ratio_a), str(ratio_b)])
 
     print(' '.join(run_cmd))
 

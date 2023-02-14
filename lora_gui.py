@@ -479,7 +479,7 @@ def train_model(
         caption_dropout_rate=caption_dropout_rate,
     ))
 
-    print(run_cmd)
+    print(' '.join(run_cmd))
     # Run the command
     subprocess.call(run_cmd)
 

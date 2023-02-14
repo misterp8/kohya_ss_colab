@@ -270,13 +270,13 @@ def train_model(
 
         run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/merge_captions_to_metadata.py']
         if caption_extension == '':
-            run_cmd += [f'--caption_extension=".caption"']
+            run_cmd.append(f'--caption_extension=".caption"')
         else:
-            run_cmd += [f'--caption_extension={caption_extension}']
-        run_cmd += [str(image_folder)]
-        run_cmd += [f'"{train_dir}/{caption_metadata_filename}"']
+            run_cmd.append(f'--caption_extension={caption_extension}')
+        run_cmd.append(str(image_folder))
+        run_cmd.append(f'"{train_dir}/{caption_metadata_filename}"')
         if full_path:
-            run_cmd += [f'--full_path']
+            run_cmd.append(f'--full_path')
 
         print(' '.join(run_cmd))
 
@@ -286,19 +286,19 @@ def train_model(
     # create images buckets
     if generate_image_buckets:
         run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/finetune/prepare_buckets_latents.py']
-        run_cmd += [f'{image_folder}']
-        run_cmd += [f'{train_dir}/{caption_metadata_filename}']
-        run_cmd += [f'{train_dir}/{latent_metadata_filename}']
-        run_cmd += [f'{pretrained_model_name_or_path}']
-        run_cmd += [f'--batch_size={batch_size}']
-        run_cmd += [f'--max_resolution={max_resolution}']
-        run_cmd += [f'--min_bucket_reso={min_bucket_reso}']
-        run_cmd += [f'--max_bucket_reso={max_bucket_reso}']
-        run_cmd += [f'--mixed_precision={mixed_precision}']
+        run_cmd.append(str(image_folder))
+        run_cmd.append(f'{train_dir}/{caption_metadata_filename}')
+        run_cmd.append(f'{train_dir}/{latent_metadata_filename}')
+        run_cmd.append(f'{pretrained_model_name_or_path}')
+        run_cmd.append(f'--batch_size={batch_size}')
+        run_cmd.append(f'--max_resolution={max_resolution}')
+        run_cmd.append(f'--min_bucket_reso={min_bucket_reso}')
+        run_cmd.append(f'--max_bucket_reso={max_bucket_reso}')
+        run_cmd.append(f'--mixed_precision={mixed_precision}')
         # if flip_aug:
         #     run_cmd += f' --flip_aug'
         if full_path:
-            run_cmd += [f'--full_path']
+            run_cmd.append(f'--full_path')
 
         print(' '.join(run_cmd))
 
@@ -333,42 +333,42 @@ def train_model(
 
     run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/fine_tune.py']
     if v2:
-        run_cmd += ['--v2']
+        run_cmd.append('--v2')
     if v_parameterization:
-        run_cmd += ['--v_parameterization']
+        run_cmd.append('--v_parameterization')
     if train_text_encoder:
-        run_cmd += ['--train_text_encoder']
-    run_cmd += [f'--pretrained_model_name_or_path={pretrained_model_name_or_path}']
+        run_cmd.append('--train_text_encoder')
+    run_cmd.append(f'--pretrained_model_name_or_path={pretrained_model_name_or_path}')
     if use_latent_files == 'Yes':
-        run_cmd += [f'--in_json={train_dir}/{latent_metadata_filename}']
+        run_cmd.append(f'--in_json={train_dir}/{latent_metadata_filename}')
     else:
-        run_cmd += [f'--in_json={train_dir}/{caption_metadata_filename}']
-    run_cmd += [f'--train_data_dir={image_folder}']
-    run_cmd += [f'--output_dir={output_dir}']
+        run_cmd.append(f'--in_json={train_dir}/{caption_metadata_filename}')
+    run_cmd.append(f'--train_data_dir={image_folder}')
+    run_cmd.append(f'--output_dir={output_dir}')
     if not logging_dir == '':
-        run_cmd += [f'--logging_dir={logging_dir}']
-    run_cmd += [f'--dataset_repeats={dataset_repeats}']
-    run_cmd += [f'--learning_rate={learning_rate}']
+        run_cmd.append(f'--logging_dir={logging_dir}')
+    run_cmd.append(f'--dataset_repeats={dataset_repeats}')
+    run_cmd.append(f'--learning_rate={learning_rate}')
 
-    run_cmd += ['--enable_bucket']
-    run_cmd += [f'--resolution={max_resolution}']
-    run_cmd += [f'--min_bucket_reso={min_bucket_reso}']
-    run_cmd += [f'--max_bucket_reso={max_bucket_reso}']
+    run_cmd.append('--enable_bucket')
+    run_cmd.append(f'--resolution={max_resolution}')
+    run_cmd.append(f'--min_bucket_reso={min_bucket_reso}')
+    run_cmd.append(f'--max_bucket_reso={max_bucket_reso}')
 
     if not save_model_as == 'same as source model':
-        run_cmd += [f'--save_model_as={save_model_as}']
+        run_cmd.append(f'--save_model_as={save_model_as}')
     if int(gradient_accumulation_steps) > 1:
-        run_cmd += [f'--gradient_accumulation_steps={int(gradient_accumulation_steps)}']
+        run_cmd.append(f'--gradient_accumulation_steps={int(gradient_accumulation_steps)}')
     # if save_state:
     #     run_cmd += ' --save_state'
     # if not resume == '':
     #     run_cmd += f' --resume={resume}'
     if not output_name == '':
-        run_cmd += [f'--output_name={output_name}']
+        run_cmd.append(f'--output_name={output_name}')
     if int(max_token_length) > 75:
-        run_cmd += [f'--max_token_length={max_token_length}']
+        run_cmd.append(f'--max_token_length={max_token_length}')
 
-    run_cmd += run_cmd_training(
+    run_cmd.extend(run_cmd_training(
         learning_rate=learning_rate,
         lr_scheduler=lr_scheduler,
         lr_warmup_steps=lr_warmup_steps,
@@ -380,9 +380,9 @@ def train_model(
         seed=seed,
         caption_extension=caption_extension,
         cache_latents=cache_latents,
-    )
+    ))
 
-    run_cmd += run_cmd_advanced_training(
+    run_cmd.extend(run_cmd_advanced_training(
         max_train_epochs=max_train_epochs,
         max_data_loader_n_workers=max_data_loader_n_workers,
         max_token_length=max_token_length,
@@ -404,7 +404,7 @@ def train_model(
         bucket_reso_steps=bucket_reso_steps,
         caption_dropout_every_n_epochs=caption_dropout_every_n_epochs,
         caption_dropout_rate=caption_dropout_rate,
-    )
+    ))
 
     print(' '.join(run_cmd))
     # Run the command

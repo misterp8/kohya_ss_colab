@@ -50,24 +50,24 @@ def convert_model(
     # check if v1 models
     if str(source_model_type) in v1_models:
         print('SD v1 model specified. Setting --v1 parameter')
-        run_cmd += ['--v1']
+        run_cmd.append('--v1')
     else:
         print('SD v2 model specified. Setting --v2 parameter')
-        run_cmd += ['--v2']
+        run_cmd.append('--v2')
 
     if not target_save_precision_type == 'unspecified':
-        run_cmd += [f'--{target_save_precision_type}']
+        run_cmd.append(f'--{target_save_precision_type}')
 
     if (
         target_model_type == 'diffuser'
         or target_model_type == 'diffuser_safetensors'
     ):
-        run_cmd += [f'--reference_model={source_model_type}']
+        run_cmd.append(f'--reference_model={source_model_type}')
 
     if target_model_type == 'diffuser_safetensors':
-        run_cmd += ['--use_safetensors']
+        run_cmd.append('--use_safetensors')
 
-    run_cmd += [str(source_model_input)]
+    run_cmd.append(str(source_model_input))
 
     if (
         target_model_type == 'diffuser'
@@ -76,13 +76,13 @@ def convert_model(
         target_model_path = os.path.join(
             target_model_folder_input, target_model_name_input
         )
-        run_cmd += [f'{target_model_path}']
+        run_cmd.append(str(target_model_path))
     else:
         target_model_path = os.path.join(
             target_model_folder_input,
             f'{target_model_name_input}.{target_model_type}',
         )
-        run_cmd += [f'{target_model_path}']
+        run_cmd.append(str(target_model_path))
 
     print(' '.join(run_cmd))
 

@@ -41,13 +41,13 @@ def extract_lora(
         return
 
     run_cmd = [f'python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/extract_lora_from_models.py']
-    run_cmd += ['--save_precision', save_precision]
-    run_cmd += ['--save_to', save_to]
-    run_cmd += ['--model_org', model_org]
-    run_cmd += ['--model_tuned', model_tuned]
-    run_cmd += ['--dim', dim]
+    run_cmd.extend(['--save_precision', str(save_precision)])
+    run_cmd.extend(['--save_to', str(save_to)])
+    run_cmd.extend(['--model_org', str(model_org)])
+    run_cmd.extend(['--model_tuned', str(model_tuned)])
+    run_cmd.extend(['--dim', str(dim)])
     if v2:
-        run_cmd += ['--v2']
+        run_cmd.append('--v2')
 
     print(' '.join(run_cmd))
 

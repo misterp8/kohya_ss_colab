@@ -28,7 +28,7 @@ def verify_lora(
         return
 
     run_cmd = ['python', '/content/gdrive/MyDrive/sd/kohya_ss/networks/check_lora_weights.py']
-    run_cmd += [lora_model]
+    run_cmd.append(str(lora_model))
 
     print(' '.join(run_cmd))
 

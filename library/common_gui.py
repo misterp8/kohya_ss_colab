@@ -596,14 +596,14 @@ def gradio_advanced_training():
 
 def run_cmd_advanced_training(**kwargs):
     run_cmd = []
-    if kwargs.get('max_train_epochs'): run_cmd.append(f'--max_train_epochs="{kwargs.get("max_train_epochs", "")}"')
-    if kwargs.get('max_data_loader_n_workers'): run_cmd.append(f'--max_data_loader_n_workers="{kwargs.get("max_data_loader_n_workers", "")}"')
+    if kwargs.get('max_train_epochs'): run_cmd.append(f'--max_train_epochs={kwargs.get("max_train_epochs", "")}')
+    if kwargs.get('max_data_loader_n_workers'): run_cmd.append(f'--max_data_loader_n_workers={kwargs.get("max_data_loader_n_workers", "")}')
     if int(kwargs.get('max_token_length', 75)) > 75: run_cmd.append(f'--max_token_length={kwargs.get("max_token_length", "")}')
     if int(kwargs.get('clip_skip', 1)) > 1: run_cmd.append(f'--clip_skip={kwargs.get("clip_skip", "")}')
-    if kwargs.get('resume'): run_cmd.append(f'--resume="{kwargs.get("resume", "")}"')
-    if int(kwargs.get('keep_tokens', 0)) > 0: run_cmd.append(f'--keep_tokens="{kwargs.get("keep_tokens", "")}"')
-    if int(kwargs.get('caption_dropout_every_n_epochs', 0)) > 0: run_cmd.append(f'--caption_dropout_every_n_epochs="{kwargs.get("caption_dropout_every_n_epochs", "")}"')
-    if float(kwargs.get('caption_dropout_rate', 0)) > 0: run_cmd.append(f'--caption_dropout_rate="{kwargs.get("caption_dropout_rate", "")}"')
+    if kwargs.get('resume'): run_cmd.append(f'--resume={kwargs.get("resume", "")}')
+    if int(kwargs.get('keep_tokens', 0)) > 0: run_cmd.append(f'--keep_tokens={kwargs.get("keep_tokens", "")}')
+    if int(kwargs.get('caption_dropout_every_n_epochs', 0)) > 0: run_cmd.append(f'--caption_dropout_every_n_epochs={kwargs.get("caption_dropout_every_n_epochs", "")}')
+    if float(kwargs.get('caption_dropout_rate', 0)) > 0: run_cmd.append(f'--caption_dropout_rate={kwargs.get("caption_dropout_rate", "")}')
     if int(kwargs.get('bucket_reso_steps', 64)) >= 1: run_cmd.append(f'--bucket_reso_steps={int(kwargs.get("bucket_reso_steps", 1))}')
     if kwargs.get('save_state'): run_cmd.append('--save_state')
     if kwargs.get('mem_eff_attn'): run_cmd.append('--mem_eff_attn')

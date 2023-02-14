@@ -441,7 +441,7 @@ def train_model(
     if not lr_scheduler_power == '':
         run_cmd.append(f'--lr_scheduler_power={lr_scheduler_power}')
 
-    run_cmd.append(run_cmd_training(
+    run_cmd.extend(run_cmd_training(
         learning_rate=learning_rate,
         lr_scheduler=lr_scheduler,
         lr_warmup_steps=lr_warmup_steps,
@@ -455,7 +455,7 @@ def train_model(
         cache_latents=cache_latents,
     ))
 
-    run_cmd.append(run_cmd_advanced_training(
+    run_cmd.extend(run_cmd_advanced_training(
         max_train_epochs=max_train_epochs,
         max_data_loader_n_workers=max_data_loader_n_workers,
         max_token_length=max_token_length,

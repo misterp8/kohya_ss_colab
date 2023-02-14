@@ -483,17 +483,17 @@ def gradio_training(
 
 def run_cmd_training(**kwargs):
     run_cmd = []
-    run_cmd += [f'--learning_rate="{kwargs.get("learning_rate", "")}"'] if kwargs.get('learning_rate') else [],
-    run_cmd += [f'--lr_scheduler="{kwargs.get("lr_scheduler", "")}"'] if kwargs.get('lr_scheduler') else [],
-    run_cmd += [f'--lr_warmup_steps="{kwargs.get("lr_warmup_steps", "")}"'] if kwargs.get('lr_warmup_steps') else [],
-    run_cmd += [f'--train_batch_size="{kwargs.get("train_batch_size", "")}"'] if kwargs.get('train_batch_size') else [],
-    run_cmd += [f'--max_train_steps="{kwargs.get("max_train_steps", "")}"'] if kwargs.get('max_train_steps') else [],
-    run_cmd += [f'--save_every_n_epochs="{kwargs.get("save_every_n_epochs", "")}"'] if kwargs.get('save_every_n_epochs') else [],
-    run_cmd += [f'--mixed_precision="{kwargs.get("mixed_precision", "")}"'] if kwargs.get('mixed_precision') else [],
-    run_cmd += [f'--save_precision="{kwargs.get("save_precision", "")}"'] if kwargs.get('save_precision') else [],
-    run_cmd += [f'--seed="{kwargs.get("seed", "")}"'] if kwargs.get('seed') else [],
-    run_cmd += [f'--caption_extension="{kwargs.get("caption_extension", "")}"'] if kwargs.get('caption_extension') else [],
-    run_cmd += ['--cache_latents'] if kwargs.get('cache_latents') else []
+    if kwargs.get('learning_rate'): run_cmd.append(f'--learning_rate={kwargs.get("learning_rate", "")}')
+    if kwargs.get('lr_scheduler'): run_cmd.append(f'--lr_scheduler={kwargs.get("lr_scheduler", "")}')
+    if kwargs.get('lr_warmup_steps'): run_cmd.append(f'--lr_warmup_steps={kwargs.get("lr_warmup_steps", "")}')
+    if kwargs.get('train_batch_size'): run_cmd.append(f'--train_batch_size={kwargs.get("train_batch_size", "")}')
+    if kwargs.get('max_train_steps'): run_cmd.append(f'--max_train_steps={kwargs.get("max_train_steps", "")}')
+    if kwargs.get('save_every_n_epochs'): run_cmd.append(f'--save_every_n_epochs={kwargs.get("save_every_n_epochs", "")}')
+    if kwargs.get('mixed_precision'): run_cmd.append(f'--mixed_precision={kwargs.get("mixed_precision", "")}')
+    if kwargs.get('save_precision'): run_cmd.append(f'--save_precision={kwargs.get("save_precision", "")}')
+    if kwargs.get('seed'): run_cmd.append(f'--seed={kwargs.get("seed", "")}')
+    if kwargs.get('caption_extension'): run_cmd.append(f'--caption_extension={kwargs.get("caption_extension", "")}')
+    if kwargs.get('cache_latents'): run_cmd.append('--cache_latents')
     return run_cmd
 
 
@@ -596,25 +596,25 @@ def gradio_advanced_training():
 
 def run_cmd_advanced_training(**kwargs):
     run_cmd = []
-    run_cmd += [f'--max_train_epochs="{kwargs.get("max_train_epochs", "")}"'] if kwargs.get('max_train_epochs') else [],
-    run_cmd += [f'--max_data_loader_n_workers="{kwargs.get("max_data_loader_n_workers", "")}"'] if kwargs.get('max_data_loader_n_workers') else [],
-    run_cmd += [f'--max_token_length={kwargs.get("max_token_length", "")}'] if int(kwargs.get('max_token_length', 75)) > 75 else [],
-    run_cmd += [f'--clip_skip={kwargs.get("clip_skip", "")}'] if int(kwargs.get('clip_skip', 1)) > 1 else [],
-    run_cmd += [f'--resume="{kwargs.get("resume", "")}"'] if kwargs.get('resume') else [],
-    run_cmd += [f'--keep_tokens="{kwargs.get("keep_tokens", "")}"'] if int(kwargs.get('keep_tokens', 0)) > 0 else [],
-    run_cmd += [f'--caption_dropout_every_n_epochs="{kwargs.get("caption_dropout_every_n_epochs", "")}"'] if int(kwargs.get('caption_dropout_every_n_epochs', 0)) > 0 else [],
-    run_cmd += [f'--caption_dropout_rate="{kwargs.get("caption_dropout_rate", "")}"'] if float(kwargs.get('caption_dropout_rate', 0)) > 0 else [],
-    run_cmd += [f'--bucket_reso_steps={int(kwargs.get("bucket_reso_steps", 1))}'] if int(kwargs.get('bucket_reso_steps', 64)) >= 1 else [],
-    run_cmd += ['--save_state'] if kwargs.get('save_state') else [],
-    run_cmd += ['--mem_eff_attn'] if kwargs.get('mem_eff_attn') else [],
-    run_cmd += ['--color_aug'] if kwargs.get('color_aug') else [],
-    run_cmd += ['--flip_aug'] if kwargs.get('flip_aug') else [],
-    run_cmd += ['--shuffle_caption'] if kwargs.get('shuffle_caption') else [],
-    run_cmd += ['--gradient_checkpointing'] if kwargs.get('gradient_checkpointing') else [],
-    run_cmd += ['--full_fp16'] if kwargs.get('full_fp16') else [],
-    run_cmd += ['--xformers'] if kwargs.get('xformers') else [],
-    run_cmd += ['--use_8bit_adam'] if kwargs.get('use_8bit_adam') else [],
-    run_cmd += ['--persistent_data_loader_workers'] if kwargs.get('persistent_data_loader_workers') else [],
-    run_cmd += ['--bucket_no_upscale'] if kwargs.get('bucket_no_upscale') else [],
-    run_cmd += ['--random_crop'] if kwargs.get('random_crop') else []
+    if kwargs.get('max_train_epochs'): run_cmd.append(f'--max_train_epochs="{kwargs.get("max_train_epochs", "")}"')
+    if kwargs.get('max_data_loader_n_workers'): run_cmd.append(f'--max_data_loader_n_workers="{kwargs.get("max_data_loader_n_workers", "")}"')
+    if int(kwargs.get('max_token_length', 75)) > 75: run_cmd.append(f'--max_token_length={kwargs.get("max_token_length", "")}')
+    if int(kwargs.get('clip_skip', 1)) > 1: run_cmd.append(f'--clip_skip={kwargs.get("clip_skip", "")}')
+    if kwargs.get('resume'): run_cmd.append(f'--resume="{kwargs.get("resume", "")}"')
+    if int(kwargs.get('keep_tokens', 0)) > 0: run_cmd.append(f'--keep_tokens="{kwargs.get("keep_tokens", "")}"')
+    if int(kwargs.get('caption_dropout_every_n_epochs', 0)) > 0: run_cmd.append(f'--caption_dropout_every_n_epochs="{kwargs.get("caption_dropout_every_n_epochs", "")}"')
+    if float(kwargs.get('caption_dropout_rate', 0)) > 0: run_cmd.append(f'--caption_dropout_rate="{kwargs.get("caption_dropout_rate", "")}"')
+    if int(kwargs.get('bucket_reso_steps', 64)) >= 1: run_cmd.append(f'--bucket_reso_steps={int(kwargs.get("bucket_reso_steps", 1))}')
+    if kwargs.get('save_state'): run_cmd.append('--save_state')
+    if kwargs.get('mem_eff_attn'): run_cmd.append('--mem_eff_attn')
+    if kwargs.get('color_aug'): run_cmd.append('--color_aug')
+    if kwargs.get('flip_aug'): run_cmd.append('--flip_aug')
+    if kwargs.get('shuffle_caption'): run_cmd.append('--shuffle_caption')
+    if kwargs.get('gradient_checkpointing'): run_cmd.append('--gradient_checkpointing')
+    if kwargs.get('full_fp16'): run_cmd.append('--full_fp16')
+    if kwargs.get('xformers'): run_cmd.append('--xformers')
+    if kwargs.get('use_8bit_adam'): run_cmd.append('--use_8bit_adam')
+    if kwargs.get('persistent_data_loader_workers'): run_cmd.append('--persistent_data_loader_workers')
+    if kwargs.get('bucket_no_upscale'): run_cmd.append('--bucket_no_upscale')
+    if kwargs.get('random_crop'): run_cmd.append('--random_crop')
     return run_cmd

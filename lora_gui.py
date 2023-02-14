@@ -441,7 +441,7 @@ def train_model(
     if not lr_scheduler_power == '':
         run_cmd.append(f'--lr_scheduler_power={lr_scheduler_power}')
 
-    run_cmd += run_cmd_training(
+    run_cmd.append(run_cmd_training(
         learning_rate=learning_rate,
         lr_scheduler=lr_scheduler,
         lr_warmup_steps=lr_warmup_steps,
@@ -453,9 +453,9 @@ def train_model(
         seed=seed,
         caption_extension=caption_extension,
         cache_latents=cache_latents,
-    )
+    ))
 
-    run_cmd += run_cmd_advanced_training(
+    run_cmd.append(run_cmd_advanced_training(
         max_train_epochs=max_train_epochs,
         max_data_loader_n_workers=max_data_loader_n_workers,
         max_token_length=max_token_length,
@@ -477,7 +477,7 @@ def train_model(
         bucket_reso_steps=bucket_reso_steps,
         caption_dropout_every_n_epochs=caption_dropout_every_n_epochs,
         caption_dropout_rate=caption_dropout_rate,
-    )
+    ))
 
     print(run_cmd)
     # Run the command

@@ -465,7 +465,7 @@ def gradio_training(
             label='LR warmup (% of steps)', value=lr_warmup_value
         )
         optimizer = gr.Dropdown(
-            label='Optimizer （优化器）',
+            label='Optimizer',
             choices=[
                 'AdamW',
                 'AdamW8bit',
@@ -475,7 +475,7 @@ def gradio_training(
                 'SGDNesterov',
                 'SGDNesterov8bit'
             ],
-            value="AdamW8bit",
+            value="Adafactor",
             interactive=True,
         )
         cache_latents = gr.Checkbox(label='Cache latent', value=True)
